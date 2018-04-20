@@ -1,0 +1,25 @@
+version: '3'
+services:
+ sql:
+  container_name: sql
+  image: mysql
+  restart: always
+  hostname: sql
+  ports: 
+  - "3306:3306"
+  environment:
+  - "MYSQL_ROOT_PASSWORD=secret"
+  - "MYSQL_DATABASE=mydb"
+  - "MYSQL_USER=shikha"
+  - "MYSQL_PASSWORD=secret"
+  volumes:
+  - ./mysql_init:/docker-entrypoint-initdb.d   
+ php:
+  container_name: webapp
+  hostname: webapp
+  build: .
+  ports:
+  - "80:80"
+  volumes:
+  - ./webapp:/var/www/html
+
